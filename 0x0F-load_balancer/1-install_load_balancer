@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # script to configure the load balancer
 sudo apt-get -y update
 sudo apt-get install haproxy -y
