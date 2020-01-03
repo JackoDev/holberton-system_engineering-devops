@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# script for fix a nginx service
+sed -i "s/listen 8080/listen 80/" /etc/nginx/sites-enabled/default
+sed -i "s/listen \[\:\:\]\:8080/listen \[\:\:\]\:80/" /etc/nginx/sites-enabled/default
+service nginx restart
