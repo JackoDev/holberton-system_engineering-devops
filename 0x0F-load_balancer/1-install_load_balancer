@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # script to configure the load balancer
+sudo apt-get -y install software-properties-common
+sudo add-apt-repository -y ppa:vbernat/haproxy-1.8
 sudo apt-get -y update
-sudo apt-get install haproxy -y
+sudo apt-get install -y haproxy=1.8.\*
 sudo sed -i '10i\\nENABLED=1\n' /etc/default/haproxy
-blc="\\\nfrontend Load_Balancer\n \tbind *:80\n \tmode http\n \tdefault_backend Web_Servers\n"
-wservs="\\nbackend Web_Servers\n \tbalance roundrobin\n \tserver 788-web-01 35.243.184.141:80 check\n \tserver 788-web-02 35.243.142.241:80 check\n"
+blc="\\\nfrontend load_Balancer\n \tbind *:80\n \tmode http\n \tdefault_backend web_servers\n"
+wservs="\\nbackend web_servers\n \tbalance roundrobin\n \tserver 788-web-01 35.243.184.141:80 check\n \tserver 788-web-02 35.243.142.241:80 check\n"
 sudo sed -i "\$a $blc\n$wservs" /etc/haproxy/haproxy.cfg
 sudo service haproxy restart
