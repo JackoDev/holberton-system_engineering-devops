@@ -15,8 +15,8 @@ def get_from_api(id):
             new.append(i.get("title"))
     print("Employee {} is done with tasks({}/{}):"
           .format(users["name"], len(new), len(done)))
-    for i in new:
-        print("\t {}".format(i))
+    for j in new:
+        print("\t {}".format(j))
 
 
 if __name__ == "__main__":
