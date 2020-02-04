@@ -3,6 +3,7 @@
 employee ID, returns information about his/her TODO list progress. """
 import requests
 import sys
+import csv
 
 if __name__ == '__main__':
     id_emp = sys.argv[1]
@@ -10,18 +11,14 @@ if __name__ == '__main__':
         'https://jsonplaceholder.typicode.com/users/{}'.format(id_emp))
     res2 = requests.get(
         'https://jsonplaceholder.typicode.com/todos'.format(id_emp))
-    name_emp = res1.json().get('name')
+    username_emp = res1.json().get('username')
     task_list = res2.json()
     done_list = []
     total_task = 0
     for i in task_list:
         if i.get('userId') == int(id_emp):
-            total_task += 1
-            if i.get('completed') is True:
-                done_list.append(i['title'])
-
-    print('Employee {} is done with tasks({}/{}):'.format(name_emp,
-                                                          len(done_list),
-                                                          total_task))
-    for i in done_list:
-        print('\t {}'.format(i))
+            done_list.append(i)
+    with open("{}.csv".format(id_emp), mode='w') as file1:
+        w = csv.writer(file1, delimiter=',', quoting=csv.QUOTE_ALL)
+        for j in done_list:
+            w.writerow([j['userId'], username_emp, j['completed'], j['title']])
