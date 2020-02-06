@@ -22,6 +22,6 @@ def recurse(subreddit, hot_list=[], key1=""):
         key1 = reqs['data']['after']
         if key1:
             recurse(subreddit, hot_list, key1)
-            return (hot_list)
+        return (hot_list)
     except Exception:
         return ("None")
